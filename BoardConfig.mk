@@ -73,5 +73,12 @@ PRODUCT_COPY_FILES += \
 BOARD_PREBUILT_DTBOIMAGE := $(KERNEL_PATH)/dtbo.img
 BOARD_PREBUILT_DTBIMAGE_DIR := $(KERNEL_PATH)/dtb
 
+# Kernel modules
+BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := $(strip $(shell cat $(KERNEL_PATH)/modules.load.vendor_boot))
+BOARD_VENDOR_RAMDISK_KERNEL_MODULES := $(addprefix $(KERNEL_PATH)/modules/vendor_boot, $(BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD))
+
+BOARD_RECOVERY_KERNEL_MODULES_LOAD := $(strip $(shell cat $(KERNEL_PATH)/modules.load.recovery))
+BOARD_RECOVERY_KERNEL_MODULES := $(addprefix $(KERNEL_PATH)/modules/vendor_boot, $(BOARD_RECOVERY_KERNEL_MODULES_LOAD))
+
 # Inherit the proprietary version
 include vendor/mototrola/vicky/BoardConfigVendor.mk
