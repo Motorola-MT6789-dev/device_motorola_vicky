@@ -5,6 +5,7 @@
 #
 
 DEVICE_PATH := device/motorola/vicky
+KERNEL_PATH := device/motorola/vicky-kernel
 
 # Architecture
 TARGET_ARCH := arm64
@@ -33,6 +34,10 @@ BOARD_KERNEL_PAGESIZE := 0x00001000
 BOARD_TAGS_OFFSET := 0x47c80000
 BOARD_RAMDISK_OFFSET := 0x66f00000
 
+BOARD_USES_GENERIC_KERNEL_IMAGE := true
+BOARD_RAMDISK_USES_LZ4 := true
+BOARD_KERNEL_SEPARATED_DTBO := true
+
 BOARD_KERNEL_CMDLINE += \
     bootopt=64S3,32N2,64N2 \
     androidboot.bootdevice=112b0000.ufshci \
@@ -54,6 +59,19 @@ BOARD_HAS_MTK_HARDWARE := true
 # Verified Boot
 BOARD_AVB_ENABLE := true
 BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
+
+# Kernel
+
+# Kill lineage kernel build task while preserving kernel
+TARGET_NO_KERNEL_OVERRIDE := true
+
+LOCAL_KERNEL := $(KERNEL_PATH)/Image.gz
+PRODUCT_COPY_FILES += \
+	$(LOCAL_KERNEL):kernel
+
+# DTB
+BOARD_PREBUILT_DTBOIMAGE := $(KERNEL_PATH)/dtbo.img
+BOARD_PREBUILT_DTBIMAGE_DIR := $(KERNEL_PATH)/dtb
 
 # Inherit the proprietary version
 include vendor/mototrola/vicky/BoardConfigVendor.mk
