@@ -50,5 +50,9 @@ BOARD_MKBOOTIMG_ARGS += \
 TARGET_BOARD_PLATFORM := mt6789
 BOARD_HAS_MTK_HARDWARE := true
 
+# Verified Boot
+BOARD_AVB_ENABLE := true
+BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
+
 # Inherit the proprietary version
 include vendor/mototrola/vicky/BoardConfigVendor.mk
