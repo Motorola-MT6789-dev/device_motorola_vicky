@@ -36,6 +36,7 @@ BOARD_RAMDISK_OFFSET := 0x66f00000
 BOARD_KERNEL_CMDLINE += \
     bootopt=64S3,32N2,64N2 \
     androidboot.bootdevice=112b0000.ufshci \
+    androidboot.init_fatal_reboot_target=recovery
 
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 
